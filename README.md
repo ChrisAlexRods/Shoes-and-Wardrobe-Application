@@ -2,7 +2,7 @@
 
 Team:
 
-* Person 1 - Which microservice?
+* Person 1 - Christain Rodriguez: Hats Microservice.
 * Person 2 - Which microservice?
 
 ## Design
