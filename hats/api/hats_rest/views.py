@@ -72,3 +72,40 @@ def list_of_hats(request):
             encoder=HatsDetailEncoder,
             safe=False,
         )
+
+@require_http_methods(["DELETE", "GET", "PUT"])
+def detail_list_hats(request, pk):
+    if request.method == "GET":
+        hat = Hats.objects.get(id=pk)
+        return JsonResponse(
+            hat,
+            encoder = HatsListEnconder,
+            safe = False,
+        )
+    elif request.method == "DELETE":
+        count,_ = Hats.objects.filter(id=pk).delete()
+        return JsonResponse({"deleted": count > 0})
+    else:
+        content = json.loads(request.body)
+        try:
+            content = json.loads(request.body)
+            hat = Hats.objects.get(id=pk)
+
+            props = ["fabric", "style_name", "color", "picture_url"]
+            for prop in props:
+                if prop in content:
+                    setattr(hat, prop, content[prop])
+            if "location" in content:
+                location_href = content["location"]["import_href"]
+                location = LocationVO.objects.get(import_href=location_href)
+                hat.location = location
+            hat.save()
+            return JsonResponse(
+                hat,
+                encoder=HatsDetailEncoder,
+                safe=False,
+            )
+        except Hats.DoesNotExist:
+            response = JsonResponse({"message": "Does not exist"})
+            response.status_code = 404
+            return response
