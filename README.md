@@ -3,7 +3,7 @@
 Team:
 
 * Person 1 - Christain Rodriguez: Hats Microservice.
-* Person 2 - Which microservice?
+* Person 2 - Daniel Im: Shoes Microservice
 
 ## Design
 
