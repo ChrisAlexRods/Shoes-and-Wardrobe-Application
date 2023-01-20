@@ -14,7 +14,7 @@ class ShoeListEncoder(ModelEncoder):
     model = Shoe
     properties = ["id", "manufacturer", "model_name", "color", "picture_url"]
     def get_extra_data(self, o):
-        return {"bin": o.bin.closet_name}
+        return {"bin": o.bin.id}
 
 class ShoeDetailEncoder(ModelEncoder):
     model = Shoe
