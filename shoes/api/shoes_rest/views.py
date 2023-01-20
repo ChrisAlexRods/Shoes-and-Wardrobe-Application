@@ -8,7 +8,7 @@ from django.http import JsonResponse
 
 class BinVODetailEncoder(ModelEncoder):
     model = BinVO
-    properties = ["id", "closet_name", "bin_number", "bin_size"]
+    properties = ["import_href", "id", "closet_name", "bin_number", "bin_size"]
 
 class ShoeListEncoder(ModelEncoder):
     model = Shoe
@@ -34,7 +34,7 @@ def api_list_shoes(request, bin_vo_id=None):
 
     if request.method == "GET":
         if bin_vo_id is not None:
-            shoes = Shoe.objects.filter(shoe=bin_vo_id)
+            shoes = Shoe.objects.filter(bin=bin_vo_id)
         else:
             shoes = Shoe.objects.all()
         return JsonResponse(
@@ -44,16 +44,19 @@ def api_list_shoes(request, bin_vo_id=None):
     else:
         content = json.loads(request.body)
 
-        # Get the Conference object and put it in the content dict
         try:
             bin_href = content["bin"]
             bin = BinVO.objects.get(import_href=bin_href)
             content["bin"] = bin
-        except BinVO.DoesNotExist:
-            return JsonResponse(
-                {"message": "Invalid bin id"},
-                status=400,
-            )
+        # except BinVO.DoesNotExist:
+        #     return JsonResponse(
+        #         {"message": "Invalid bin idkjhbkjb"},
+        #         status=400,
+        #     )
+        except Exception as e:
+            response = JsonResponse({"message": str(e)})
+            response.status_code = 500
+            return response
 
         shoe = Shoe.objects.create(**content)
         return JsonResponse(
@@ -72,25 +75,25 @@ def api_show_shoe(request, pk):
             encoder=ShoeDetailEncoder,
             safe=False,
         )
-    # elif request.method == "DELETE":
-    #     count, _ = Attendee.objects.filter(id=id).delete()
-    #     return JsonResponse({"deleted": count > 0})
-    # else:
-    #     content = json.loads(request.body)
-    #     try:
-    #         if "conference" in content:
-    #             conference = ConferenceVO.objects.get(id=content["conference"])
-    #             content["conference"] = conference
-    #     except ConferenceVO.DoesNotExist:
-    #         return JsonResponse(
-    #             {"message": "Invalid conference id"},
-    #             status=400,
-    #         )
-    #     Attendee.objects.filter(id=id).update(**content)
+    elif request.method == "DELETE":
+        count, _ = Shoe.objects.filter(id=pk).delete()
+        return JsonResponse({"deleted": count > 0})
+    else:
+        content = json.loads(request.body)
+        try:
+            if "bin" in content:
+                bin = BinVO.objects.get(id=content["bin"])
+                content["bin"] = bin
+        except BinVO.DoesNotExist:
+            return JsonResponse(
+                {"message": "Invalid bin id"},
+                status=400,
+            )
+        Shoe.objects.filter(id=pk).update(**content)
 
-    #     attendee = Attendee.objects.get(id=id)
-    #     return JsonResponse(
-    #         {"attendee": attendee},
-    #         encoder=AttendeeDetailEncoder,
-    #         safe=False,
-    #     )
+        shoe = Shoe.objects.get(id=pk)
+        return JsonResponse(
+            {"shoe": shoe},
+            encoder=ShoeDetailEncoder,
+            safe=False,
+        )
