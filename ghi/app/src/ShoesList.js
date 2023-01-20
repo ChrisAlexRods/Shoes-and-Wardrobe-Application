@@ -25,7 +25,7 @@ function ShoesList() {
                 <th>Color</th>
                 <th>bin</th>
                 <th>picture_url</th>
-                {/* <th>Delete</th> */}
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -35,9 +35,9 @@ function ShoesList() {
                     <td>{ shoe.manufacturer }</td>
                     <td>{ shoe.model_name }</td>
                     <td>{ shoe.color }</td>
-                    <td>{ shoe.bin }</td>
+                    <td>{ shoe.bin.closet_name }</td>
                     <td>{ shoe.picture_url }</td>
-                    {/* <td><button onClick={() => this.delete(shoe.id)}>Delete</button></td> */}
+                    <td><button onClick={() => this.delete(shoe.id)}>Delete</button></td>
                 </tr>
                 );
             })}
