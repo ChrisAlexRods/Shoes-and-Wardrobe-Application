@@ -1,6 +1,6 @@
 import React, {useEffect, useState } from 'react';
 
-function ShoeForm() {
+function ShoesForm() {
 
     const [bins, setBins] = useState([])
 
@@ -32,7 +32,7 @@ function ShoeForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const url = 'http://localhost:8080/api/bin/1/shoes/';
+        const url = 'http://localhost:8080/api/shoes/';
         const fetchOptions = {
             method: 'post',
             body: JSON.stringify(formData),
@@ -99,7 +99,7 @@ function ShoeForm() {
                                     <option value="">Choose a bin</option>
                                     {bins.map(bin => {
                                     return (
-                                        <option key={bin.id} value={bin.id}>{bin.closet_name}</option>
+                                        <option key={bin.href} value={bin.href}>{bin.closet_name}</option>
                                     )
                                     })}
                                 </select>
@@ -141,4 +141,4 @@ function ShoeForm() {
     );
 }
 
-export default ShoeForm;
+export default ShoesForm;
