@@ -3,6 +3,7 @@ import MainPage from './MainPage';
 import Nav from './Nav';
 import HatsForm from './HatsForm';
 import ShoeForm from './ShoeForm';
+import HatsList from './HatsList'
 
 function App(props) {
   return (
@@ -12,6 +13,7 @@ function App(props) {
         <Routes>
           <Route path="/" element={<MainPage/>} />
           <Route path="/hats/" element = {<HatsForm/>}/>
+          <Route path="/hatslist/" element={<HatsList />} />
           <Route path="/shoes" element={<ShoeForm />} />
         </Routes>
       </div>
