@@ -32,7 +32,7 @@ function ShoeForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const url = 'localhost:8080/api/shoes/';
+        const url = 'http://localhost:8080/api/bin/1/shoes/';
         const fetchOptions = {
             method: 'post',
             body: JSON.stringify(formData),
