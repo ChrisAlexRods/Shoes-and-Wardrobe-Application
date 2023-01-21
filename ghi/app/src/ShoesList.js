@@ -12,9 +12,20 @@ function ShoesList() {
     }
   }
 
+  const handleDelete = async (id) => {
+    const url = `http://localhost:8080/api/shoes/${id}`
+    const fetchConfig = {
+        method: 'delete',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }
+    await fetch(url, fetchConfig)
+  }
+
   useEffect(()=>{
     getData()
-  }, [])
+  }, [handleDelete])
 
     return (
         <table className="table table-striped">
@@ -36,8 +47,8 @@ function ShoesList() {
                     <td>{ shoe.model_name }</td>
                     <td>{ shoe.color }</td>
                     <td>{ shoe.bin.closet_name }</td>
-                    <td>{ shoe.picture_url }</td>
-                    <td><button onClick={() => this.delete(shoe.id)}>Delete</button></td>
+                    <td><a href={ shoe.picture_url }>{ shoe.picture_url }</a></td>
+                    <td><button className="btn btn-med btn-primary" onClick={() => handleDelete(shoe.id)}>Delete</button></td>
                 </tr>
                 );
             })}
