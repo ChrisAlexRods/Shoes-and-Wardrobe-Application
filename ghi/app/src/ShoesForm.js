@@ -62,12 +62,12 @@ function ShoesForm() {
     }
 
     // CSS classes for rendering
-    // let spinnerClasses = 'd-flex justify-content-center mb-3';
-    // let dropdownClasses = 'form-select d-none';
-    // if (bins.length > 0) {
-    // spinnerClasses = 'd-flex justify-content-center mb-3 d-none';
-    // dropdownClasses = 'form-select';
-    // }
+    let spinnerClasses = 'd-flex justify-content-center mb-3';
+    let dropdownClasses = 'form-select d-none';
+    if (bins.length > 0) {
+    spinnerClasses = 'd-flex justify-content-center mb-3 d-none';
+    dropdownClasses = 'form-select';
+    }
 
     // let messageClasses = 'alert alert-success d-none mb-0';
     // let formClasses = '';
@@ -88,14 +88,13 @@ function ShoesForm() {
                                 Please choose where you'd
                                 like to keep your shoes.
                             </p>
-                            {/* <div className={spinnerClasses} id="loading-bin-spinner">
+                            <div className={spinnerClasses} id="loading-bin-spinner">
                                 <div className="spinner-grow text-secondary" role="status">
                                     <span className="visually-hidden">Loading...</span>
                                 </div>
-                            </div> */}
+                            </div>
                             <div className="mb-3">
-                                {/* <select onChange={handleFormChange} value={formData.bin} name="bin" id="bin" className={dropdownClasses} required> */}
-                                <select onChange={handleFormChange} value={formData.bin} name="bin" id="bin" className="form-select" required>
+                                <select onChange={handleFormChange} value={formData.bin} name="bin" id="bin" className={`${dropdownClasses} form-select`} required>
                                     <option value="">Choose a bin</option>
                                     {bins.map(bin => {
                                     return (

@@ -20,12 +20,15 @@ function ShoesList() {
             'Content-Type': 'application/json',
         }
     }
-    await fetch(url, fetchConfig)
+    const response = await fetch(url, fetchConfig)
+    if (response.ok) {
+        getData()
+    }
   }
 
   useEffect(()=>{
     getData()
-  }, [handleDelete])
+  }, [])
 
     return (
         <table className="table table-striped">
