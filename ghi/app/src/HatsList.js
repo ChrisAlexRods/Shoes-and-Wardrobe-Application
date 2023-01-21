@@ -24,6 +24,7 @@ function HatsList() {
           <th>Style Name</th>
           <th>Fabric</th>
           <th>Color</th>
+          <th>URL</th>
           <th>Location</th>
         </tr>
       </thead>
@@ -33,6 +34,7 @@ function HatsList() {
               <td>{hat.style_name}</td>
               <td>{hat.fabric}</td>
               <td>{hat.color}</td>
+              <td>{hat.picture_url}</td>
               <td>{hat.location.closet_name}</td>
             </tr>
         ))}
