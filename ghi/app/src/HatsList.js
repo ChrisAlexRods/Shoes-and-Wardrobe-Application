@@ -12,6 +12,20 @@ function HatsList() {
       }
     };
 
+    const handleDelete = async (id) => {
+      const url = `http://localhost:8090/api/hats/${id}`
+      const fetchConfig = {
+          method: 'delete',
+          headers: {
+              'Content-Type': 'application/json',
+          }
+      }
+      const response = await fetch(url, fetchConfig)
+      if (response.ok) {
+          getData()
+      }
+    }
+
     useEffect(() => {
     getData();
   }, []);
@@ -26,6 +40,7 @@ function HatsList() {
           <th>Color</th>
           <th>URL</th>
           <th>Location</th>
+          <th>Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -36,6 +51,7 @@ function HatsList() {
               <td>{hat.color}</td>
               <td>{hat.picture_url}</td>
               <td>{hat.location.closet_name}</td>
+              <td><button className="btn btn-med btn-primary" onClick={() => handleDelete(hat.id)}>Delete</button></td>
             </tr>
         ))}
       </tbody>
