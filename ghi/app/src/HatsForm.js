@@ -6,6 +6,7 @@ function HatsForm(){
   const [styleName, setstyleName] = useState("");
   const [color, setColor] = useState("");
   const [selectedLocation, setSelectedLocation] = useState('');
+  const[url, setUrl] = useState('');
   const [location, setlocation] = useState([]);
 
   const handleFabricChange = (event) => {
@@ -21,6 +22,11 @@ function HatsForm(){
   const handleColorChange = (event) => {
     const value = event.target.value;
     setColor(value);
+  }
+
+  const handleUrlChange = (event) => {
+    const value = event.target.value;
+    setUrl(value);
   }
 
   const handleLocationChange = (event) => {
@@ -39,13 +45,31 @@ function HatsForm(){
     }
   }
 
+  // function HatsForm(){
+  //   const [hats, setHats] = useState([]);
+  //   const [selectedHatId, setSelectedHatId] = useState('');
+
+
+  //   const handleDelete = async (hatId) => {
+  //     const deleteUrl = `http://localhost:8090/api/hats/${hatId}`;
+  //     const fetchConfig = {
+  //       method: "delete",
+  //     };
+  //     const response = await fetch(deleteUrl, fetchConfig);
+  //     if (response.ok){
+  //       setHats(hats.filter(hat => hat.id !== hatId));
+  //     }
+  //   }
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+//This is making the model fields equal to the fields above. Won't work otherwise.
     const data = {};
     data.fabric = fabric;
     data.style_name = styleName;
     data.color = color;
+    data.picture_url = url;
     data.location = selectedLocation;
     console.log(data)
 
@@ -92,6 +116,10 @@ function HatsForm(){
                 <input placeholder="color" onChange={handleColorChange}  type="text" name="color" id="color" className="form-control" />
                 <label htmlFor="color">Color</label>
               </div>
+              <div className="form-floating mb-3">
+                <input placeholder="picture_url" onChange={handleUrlChange}  type="url" name="picture_url" id="picture_url" className="form-control" />
+                <label htmlFor="picture_url">Post the Url</label>
+              </div>
               <div className="mb-3">
               <select required name="location" id="location" className="form-select" onChange={handleLocationChange} >
                 <option  value="">Choose a location</option>
@@ -101,6 +129,14 @@ function HatsForm(){
               </select>
               </div>
               <button className="btn btn-primary">Create</button>
+              {/* <div>
+                {hats.map(hat => (
+                  <div key={hat.id}>
+                    <p>{hat.name}</p>
+                    <button onClick={() => handleDelete(hat.id)}>Delete Hat</button>
+                  </div>
+                ))}
+              </div> */}
             </form>
           </div>
         </div>
