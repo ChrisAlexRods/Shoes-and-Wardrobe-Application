@@ -45,23 +45,6 @@ function HatsForm(){
     }
   }
 
-  // function HatsForm(){
-  //   const [hats, setHats] = useState([]);
-  //   const [selectedHatId, setSelectedHatId] = useState('');
-
-
-  //   const handleDelete = async (hatId) => {
-  //     const deleteUrl = `http://localhost:8090/api/hats/${hatId}`;
-  //     const fetchConfig = {
-  //       method: "delete",
-  //     };
-  //     const response = await fetch(deleteUrl, fetchConfig);
-  //     if (response.ok){
-  //       setHats(hats.filter(hat => hat.id !== hatId));
-  //     }
-  //   }
-
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 //This is making the model fields equal to the fields above. Won't work otherwise.
@@ -129,14 +112,6 @@ function HatsForm(){
               </select>
               </div>
               <button className="btn btn-primary">Create</button>
-              {/* <div>
-                {hats.map(hat => (
-                  <div key={hat.id}>
-                    <p>{hat.name}</p>
-                    <button onClick={() => handleDelete(hat.id)}>Delete Hat</button>
-                  </div>
-                ))}
-              </div> */}
             </form>
           </div>
         </div>
